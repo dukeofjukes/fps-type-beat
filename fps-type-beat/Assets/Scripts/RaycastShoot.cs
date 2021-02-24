@@ -11,11 +11,13 @@ public class RaycastShoot : MonoBehaviour {
 
   private Camera fpsCam;
   private WaitForSeconds shotDuration = new WaitForSeconds(.07f);
-  //private AudioSource gunAudio;
-  //private LineRenderer laserLine;
+  private AudioSource gunAudio;
+  private LineRenderer laserLine;
   private float nextFire;
 
   void Start() {
+    gunAudio = GetComponent<AudioSource>();
+    laserLine = GetComponent<LineRenderer>();
     fpsCam = GetComponentInParent<Camera>();
   }
 
@@ -23,15 +25,15 @@ public class RaycastShoot : MonoBehaviour {
     if (Input.GetButtonDown("Fire1") && Time.time > nextFire) {
       nextFire = Time.time + fireRate;
 
-      //StartCoroutine(ShotEffect());
+      StartCoroutine(ShotEffect());
 
       Vector3 rayOrigin = fpsCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
       RaycastHit hit;
 
-      //laserLine.SetPosition(0, gunEnd.position);
+      laserLine.SetPosition(0, gunEnd.position);
 
       if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, weaponRange)) {
-        //laserLine.SetPosition(1, hit.point);
+        laserLine.SetPosition(1, hit.point);
 
         // handle health damage to shootable objects:
         ShootableBox health = hit.collider.GetComponent<ShootableBox>();
@@ -42,16 +44,16 @@ public class RaycastShoot : MonoBehaviour {
           hit.rigidbody.AddForce(-hit.normal * hitForce);
         }
       } else {
-        //laserLine.SetPosition(1, rayOrigin + (fpsCam.transform.forward * weaponRange));
+        laserLine.SetPosition(1, rayOrigin + (fpsCam.transform.forward * weaponRange));
       }
     }
   }
 
-  /*private IEnumerator ShotEffect() {
-    //gunAudio.Play();
+  private IEnumerator ShotEffect() {
+    gunAudio.Play();
 
     laserLine.enabled = true;
     yield return shotDuration;
     laserLine.enabled = false;
-  }*/
+  }
 }
