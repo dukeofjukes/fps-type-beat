@@ -9,10 +9,11 @@ public class PlayerMovement : MonoBehaviour {
   public CharacterController controller;
 
   // horizontal movement and gravity variables:
-  public float speed = 12f;
+  public float speed = 16f;
   public float gravity = -9.81f;
-  public float jumpHeight = 3f;
+  public float jumpHeight = 5f;
   Vector3 velocity;
+  public float stepOffset = 0.3f; // variable to set the character controller's step offset
 
   // ground check variables:
   public Transform groundCheck;
@@ -35,6 +36,7 @@ public class PlayerMovement : MonoBehaviour {
     Vector3 movementDir = transform.right * x + transform.forward * z;
     controller.Move(movementDir * speed * Time.deltaTime);
 
+    // apply jump velocity:
     if (Input.GetButtonDown("Jump") && isGrounded) {
       velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
     }
@@ -43,5 +45,12 @@ public class PlayerMovement : MonoBehaviour {
     // deltaY = 1/2*g * t^2 (freefall equation)
     velocity.y += gravity * Time.deltaTime;
     controller.Move(velocity * Time.deltaTime);
+
+    // necessary to avoid jump-stuttering, disable step offset while in air:
+    if (isGrounded) {
+      controller.stepOffset = stepOffset;
+    } else {
+      controller.stepOffset = 0;
+    }
   }
 }
