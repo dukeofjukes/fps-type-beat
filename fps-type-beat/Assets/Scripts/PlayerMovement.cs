@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour {
   public float gravity = -9.81f;
   public float jumpHeight = 5f;
   Vector3 velocity;
-  public float stepOffset = 0.3f; // variable to set the character controller's step offset
+  public float stepOffset = 0.3f; // variable to set the character controller's stair-step offset
 
   // ground check variables:
   public Transform groundCheck;
