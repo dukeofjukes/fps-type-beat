@@ -9,7 +9,7 @@ public class RaycastShoot : MonoBehaviour {
   public float hitForce = 100f;
   public Transform gunEnd;
 
-  private Camera fpsCam;
+  private Camera fpsCam; // FIXME: nullref when a camera does not exist (i.e. an enemy), is there a fix?
   private WaitForSeconds shotDuration = new WaitForSeconds(.07f);
   private AudioSource gunAudio;
   private LineRenderer laserLine;

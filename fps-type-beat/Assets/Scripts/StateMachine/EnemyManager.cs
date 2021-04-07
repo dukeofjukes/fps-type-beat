@@ -9,23 +9,24 @@ public class EnemyManager : MonoBehaviour {
   public Transform path; // holds idle patrolling path
 
   public float distanceFromTarget;
-  public float viewRadius; // detection radius
+  public float viewRadius = 10f; // detection radius
   public float viewAngle; // detection fov angle
   public float attackRadius = 20f; // distance player has to escape to end attack state
+  public float stopPursuitRadius = 5f;
   public LayerMask viewMask;
 
   // horizontal movement and gravity variables:
   public float speed = 16f;
   public float gravity = -9.81f;
   public float jumpHeight = 5f;
-  Vector3 velocity;
+  public Vector3 velocity;
   public float stepOffset = 0.3f; // variable to set the character controller's stair-step offset
 
   // ground check variables:
   public Transform groundCheck;
   public float groundDistance = 0.4f;
   public LayerMask groundMask;
-  bool isGrounded;
+  public bool isGrounded;
 
   void Update() {
     HandleStateMachine();
