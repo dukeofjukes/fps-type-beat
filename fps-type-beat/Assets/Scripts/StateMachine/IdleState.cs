@@ -5,9 +5,9 @@ using UnityEngine;
 public class IdleState : State {
   public AttackState attackState; // reference to the attack state
 
-  //public float waitTime = .3f;
-
   public override State RunCurrentState(EnemyManager em) {
+    //StartCoroutine(FollowPath(em.waypoints, em));
+
     // handle state switching:
     if (CanSeePlayer(em)) {
       return attackState;
@@ -17,7 +17,7 @@ public class IdleState : State {
   }
 
   /*
-    determines whether the enemy can see the player, and returns the result.
+    Determines whether the enemy can see the player, and returns the result.
   */
   bool CanSeePlayer(EnemyManager em) {
     if (em.distanceFromTarget < em.viewRadius) { // check distance
@@ -33,7 +33,9 @@ public class IdleState : State {
     return false;
   }
 
-  /* // TODO: make enemy follow a path, and return to it if it switches from attack state
+  /*
+    Continuously follow idle patrol path defined in editor.
+  */
   IEnumerator FollowPath(Vector3[] waypoints, EnemyManager em) {
     em.transform.position = waypoints[0];
 
@@ -50,5 +52,4 @@ public class IdleState : State {
       yield return null;
     }
   }
-  */
 }
