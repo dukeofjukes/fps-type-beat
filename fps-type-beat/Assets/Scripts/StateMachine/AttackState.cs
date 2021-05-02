@@ -7,8 +7,6 @@ public class AttackState : State {
   public bool isOutOfAttackRange;
 
   public override State RunCurrentState(EnemyManager em) {
-    em.distanceFromTarget = Vector3.Distance(em.target.position, transform.position);
-    
     if (em.distanceFromTarget < em.attackRadius) {
       isOutOfAttackRange = false;
 
@@ -18,6 +16,7 @@ public class AttackState : State {
         em.velocity.y = -2f;
       }
 
+      // randomize movement:
       float x, z;
       if (em.distanceFromTarget > em.stopPursuitRadius) {
         z = (int)Random.Range(-1, 1);
@@ -31,11 +30,6 @@ public class AttackState : State {
       if (Random.value > 0.5) {
         em.velocity.y = Mathf.Sqrt(em.jumpHeight * -2f * em.gravity);
       }
-
-      // apply gravity over time:
-      // deltaY = 1/2*g * t^2 (freefall equation)
-      em.velocity.y += em.gravity * Time.deltaTime;
-      em.controller.Move(em.velocity * Time.deltaTime);
 
       // necessary to avoid jump-stuttering, disable step offset while in air:
       if (em.isGrounded) {

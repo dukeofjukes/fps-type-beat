@@ -131,7 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 121119195}
   - component: {fileID: 121119196}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: AttackState
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1870,6 +1870,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5462590486644223332, guid: 9d1836ee5946f264c99bfa9d6aa29052,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5462590487224809278, guid: 9d1836ee5946f264c99bfa9d6aa29052,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5462590487611653652, guid: 9d1836ee5946f264c99bfa9d6aa29052,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 5462590487694393622, guid: 9d1836ee5946f264c99bfa9d6aa29052,
         type: 3}
       propertyPath: m_RootOrder
@@ -1930,6 +1945,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5462590487694393623, guid: 9d1836ee5946f264c99bfa9d6aa29052,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5462590488327550549, guid: 9d1836ee5946f264c99bfa9d6aa29052,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5462590488544092953, guid: 9d1836ee5946f264c99bfa9d6aa29052,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5462590488588835206, guid: 9d1836ee5946f264c99bfa9d6aa29052,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5462590488591180900, guid: 9d1836ee5946f264c99bfa9d6aa29052,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5462590488635603982, guid: 9d1836ee5946f264c99bfa9d6aa29052,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d1836ee5946f264c99bfa9d6aa29052, type: 3}
 --- !u!1 &460161505
@@ -1942,7 +1987,7 @@ GameObject:
   m_Component:
   - component: {fileID: 460161506}
   - component: {fileID: 460161507}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: IdleState
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2214,7 +2259,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1444828561}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: States
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2356,7 +2401,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8049646885439203034}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: POV
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2370,7 +2415,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8049646885643595765}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 3175fbaf2749f734e953a5582d20038b, type: 3}
@@ -2592,7 +2637,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8049646885643595765}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a61e561f84198cf4d9b0dfc07f744f5f, type: 3}
   m_Name: 
@@ -2615,7 +2660,7 @@ GameObject:
   - component: {fileID: 8049646885643595761}
   - component: {fileID: 8049646885643595760}
   - component: {fileID: 8049646885643595726}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2647,7 +2692,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8049646886015204482}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2726,7 +2771,7 @@ GameObject:
   - component: {fileID: 8049646886541879216}
   - component: {fileID: 8049646886541879219}
   - component: {fileID: 8049646886541879218}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2819,7 +2864,7 @@ GameObject:
   - component: {fileID: 8049646886700051948}
   - component: {fileID: 8049646886700051947}
   - component: {fileID: 8049646886700051946}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2849,7 +2894,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8049646886754928740}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Gun End
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2879,7 +2924,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8049646886757283202}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ground Check
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2958,7 +3003,7 @@ GameObject:
   - component: {fileID: 8049646886858109684}
   - component: {fileID: 8049646886858109687}
   - component: {fileID: 8049646886858109686}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3008,7 +3053,7 @@ GameObject:
   - component: {fileID: 8049646887116689655}
   - component: {fileID: 8049646887116689652}
   - component: {fileID: 8049646887116689656}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3062,6 +3107,7 @@ MonoBehaviour:
   jumpHeight: 5
   velocity: {x: 0, y: 0, z: 0}
   stepOffset: 0.3
+  followPathWaitTime: 2
   groundCheck: {fileID: 8049646886757283202}
   groundDistance: 0.4
   groundMask:
