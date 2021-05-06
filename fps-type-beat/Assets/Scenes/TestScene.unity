@@ -164,7 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01236e0f5b5f72f41a967082bde216a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleState: {fileID: 460161507}
+  enemyManager: {fileID: 8049646887116689656}
+  patrolState: {fileID: 460161507}
 --- !u!1 &139275689
 GameObject:
   m_ObjectHideFlags: 0
@@ -2017,7 +2018,7 @@ GameObject:
   - component: {fileID: 460161506}
   - component: {fileID: 460161507}
   m_Layer: 10
-  m_Name: IdleState
+  m_Name: PatrolState
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2046,9 +2047,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 460161505}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 721767beec69fa84abeb24cc529730b1, type: 3}
+  m_Script: {fileID: 11500000, guid: 93739b0fe1129244aab27f30d813e6f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyManager: {fileID: 8049646887116689656}
   attackState: {fileID: 121119196}
 --- !u!1 &486137325
 GameObject:
@@ -3090,27 +3092,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 8049646887116689652}
-  currentState: {fileID: 460161507}
-  target: {fileID: 1307289225}
-  distanceFromTarget: 0
-  viewRadius: 10
-  viewAngle: 90
-  attackRadius: 20
-  stopPursuitRadius: 5
-  viewMask:
-    serializedVersion: 2
-    m_Bits: 0
   speed: 16
   gravity: -9.81
   jumpHeight: 5
   velocity: {x: 0, y: 0, z: 0}
   stepOffset: 0.3
-  path: {fileID: 1957387623}
-  waypoints: []
-  followPathWaitTime: 2
+  xMovement: 0
+  zMovement: 0
   groundCheck: {fileID: 8049646886757283202}
   groundDistance: 0.4
   groundMask:
     serializedVersion: 2
     m_Bits: 256
   isGrounded: 0
+  currentState: {fileID: 460161507}
+  target: {fileID: 1307289225}
+  distanceFromTarget: 0
+  viewRadius: 20
+  viewAngle: 90
+  attackRadius: 50
+  stopPursuitRadius: 10
+  viewMask:
+    serializedVersion: 2
+    m_Bits: 0
+  path: {fileID: 1957387623}
+  waypoints: []
+  followPathWaitTime: 2

@@ -3,50 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackState : State {
-  public IdleState idleState;
+  public PatrolState patrolState;
 
-  public override State RunCurrentState(EnemyManager em) {
-    HandleMovement(em);
-    //HandleShooting(em);
+  public override State RunCurrentState() {
+    SetRandomMovement();
+    //SetAim();
+    //HandleShooting(enemyManager);
 
     // handle state switching:
-    if (em.distanceFromTarget > em.attackRadius) {
-      return idleState; // switch states
+    if (enemyManager.distanceFromTarget > enemyManager.attackRadius) {
+      return patrolState; // switch states
     } else {
       return this; // remain in this state
     }
   }
 
-  void HandleMovement(EnemyManager em) {
-    // if player is touching ground, set velocity to a constant:
-    em.isGrounded = Physics.CheckSphere(em.groundCheck.position, em.groundDistance, em.groundMask);
-    if (em.isGrounded && em.velocity.y < 0) {
-      em.velocity.y = -2f;
-    }
-
+  /*
+    Assign x, y, z with random movement.
+  */
+  private void SetRandomMovement() {
+    // FIXME: something here isn't working right. agent keeps jumping (like always (need a cooldown timer?)).
+    //        agent also never moves to their right. weird.
     // randomize movement:
-    float x, z;
-    if (em.distanceFromTarget > em.stopPursuitRadius) {
-      z = (int)Random.Range(-1, 1);
-    } else {
-      z = (int)Random.Range(0, 1);
+    if (enemyManager.distanceFromTarget > enemyManager.stopPursuitRadius) { // outside of stopPursuitRadius
+      enemyManager.zMovement = (int)Random.Range(0, 1);
+    } else { // within stopPursuitRadius "personal space"
+      enemyManager.zMovement = (int)Random.Range(-1, 0);
     }
-    x = (int)Random.Range(-1, 1);
-    Vector3 movementDir = transform.right * x + transform.forward * z;
-    em.controller.Move(movementDir * em.speed * Time.deltaTime);
+    enemyManager.xMovement = (int)Random.Range(-1, 1); // strafe left or right
 
-    if (Random.value > 0.5) {
-      em.velocity.y = Mathf.Sqrt(em.jumpHeight * -2f * em.gravity);
-    }
-
-    // necessary to avoid jump-stuttering, disable step offset while in air:
-    if (em.isGrounded) {
-      em.controller.stepOffset = em.stepOffset;
-    } else {
-      em.controller.stepOffset = 0;
+    // randomize jumping:
+    if (Random.value > 0.5 && enemyManager.isGrounded) {
+      enemyManager.velocity.y = Mathf.Sqrt(enemyManager.jumpHeight * -2f * enemyManager.gravity);
     }
   }
 
+  /*
+    While attacking, always face the player.
+  */
+  private void SetAim() {
+    //TODO: face the player (left off here!!!)
+  }
+
   //TODO: define shooting behavior
-  // void HandleShooting(EnemyManager em) {}
+  // private void HandleShooting() {}
 }

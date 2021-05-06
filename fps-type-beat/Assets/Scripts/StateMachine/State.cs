@@ -3,5 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class State : MonoBehaviour {
-   public abstract State RunCurrentState(EnemyManager em);
+  public EnemyManager enemyManager;
+
+  public abstract State RunCurrentState();
 }

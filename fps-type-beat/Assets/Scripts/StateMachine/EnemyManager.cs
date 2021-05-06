@@ -2,37 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour {
-  [Header ("Primary Component References")]
-  public CharacterController controller; // this enemy's character controller
+public class EnemyManager : CharacterManager {
+  [Header ("Enemy-specific Component References")]
   public State currentState; // holds starting state, displays current state during runtime
   public Transform target; // the player's transform
 
   [Header ("State Detection Triggers")]
   public float distanceFromTarget; // tracks the current distance from target
-  public float viewRadius = 10f; // detection radius
-  public float viewAngle = 70; // detection field-of-view angle (in degrees)
-  public float attackRadius = 20f; // distance player has to escape to end attack state
-  public float stopPursuitRadius = 5f; // "personal space" distance around the player, enemy will stop pursuit at this radius
+  public float viewRadius = 20f; // detection radius
+  public float viewAngle = 70f; // detection field-of-view angle (in degrees)
+  public float attackRadius = 50f; // distance player has to escape to end attack state
+  public float stopPursuitRadius = 10f; // "personal space" distance around the player, enemy will stop pursuit at this radius
   public LayerMask viewMask; // TODO: assign this in editor (Environment mask?)
-
-  [Header ("Movement and Gravity")]
-  public float speed = 16f;
-  public float gravity = -9.81f;
-  public float jumpHeight = 5f;
-  public Vector3 velocity;
-  public float stepOffset = 0.3f; // variable to set the character controller's stair-step offset
 
   [Header ("Idle Path Following")]
   public Transform path; // idle patrolling path
   public Vector3[] waypoints; // hold invididual waypoints. populated in Start() and utilized in IdleState
   public float followPathWaitTime = .3f; // time to wait between path nodes (idle state)
-
-  [Header ("Ground Checking")]
-  public Transform groundCheck;
-  public float groundDistance = 0.4f;
-  public LayerMask groundMask;
-  public bool isGrounded;
 
   void Start() {
     // populate waypoints array with path waypoints:
@@ -48,19 +34,15 @@ public class EnemyManager : MonoBehaviour {
   */
   void Update() {
     distanceFromTarget = Vector3.Distance(target.position, transform.position); // refresh distance
-
-    // apply gravity over time:
-    velocity.y += gravity * Time.deltaTime;
-    controller.Move(velocity * Time.deltaTime);
-
     HandleStateMachine();
+    ApplyMovement(); // inherited from CharacterManager
   }
 
   /*
     Run the current state, and if a next state is returned, switch to it.
   */
   private void HandleStateMachine() {
-    State nextState = currentState?.RunCurrentState(this); // if variable is not null, run current state
+    State nextState = currentState?.RunCurrentState(); // if variable is not null, run current state
 
     if (nextState != null) {
       SwitchToNextState(nextState);
