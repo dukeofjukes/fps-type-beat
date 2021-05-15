@@ -20,9 +20,8 @@ public class PatrolState : State {
     Determines whether the enemy can see the player, and returns the result.
   */
   bool CanSeePlayer() {
-    if (enemyManager.distanceFromTarget < enemyManager.viewRadius) { // check distance
-      Vector3 dirToTarget = (enemyManager.target.position - enemyManager.transform.position).normalized;
-      float angleBetweenEnemyAndTarget = Vector3.Angle(enemyManager.transform.forward, dirToTarget);
+    if (enemyManager.targetDistance < enemyManager.viewRadius) { // check distance
+      float angleBetweenEnemyAndTarget = Vector3.Angle(enemyManager.transform.forward, enemyManager.targetDirection);
 
       if (angleBetweenEnemyAndTarget < enemyManager.viewAngle / 2f) { // check view angle
         if (!Physics.Linecast(enemyManager.transform.position, enemyManager.target.transform.position, enemyManager.viewMask)) { // check if view is obstructed
@@ -35,6 +34,7 @@ public class PatrolState : State {
 
   /*
     Continuously follow idle patrol path defined in editor.
+    FIXME: kinda broken
   */
   IEnumerator FollowPath(Vector3[] waypoints) {
     enemyManager.transform.position = waypoints[0];

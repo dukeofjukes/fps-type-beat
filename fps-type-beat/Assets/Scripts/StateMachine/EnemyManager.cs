@@ -8,14 +8,20 @@ public class EnemyManager : CharacterManager {
   public Transform target; // the player's transform
 
   [Header ("State Detection Triggers")]
-  public float distanceFromTarget; // tracks the current distance from target
+  private Vector3 targetHeading; // base value used to calculate distance and direction (see below)
+  public float targetDistance; // tracks the current distance from target
+  public Vector3 targetDirection; // points from this enemy towards the target
   public float viewRadius = 20f; // detection radius
   public float viewAngle = 70f; // detection field-of-view angle (in degrees)
   public float attackRadius = 50f; // distance player has to escape to end attack state
   public float stopPursuitRadius = 10f; // "personal space" distance around the player, enemy will stop pursuit at this radius
   public LayerMask viewMask; // TODO: assign this in editor (Environment mask?)
 
-  [Header ("Idle Path Following")]
+  [Header ("Attack State Variables")]
+  public float timerStrafeInterval = 1f;
+  public float timerJumpInterval = 2f;
+
+  [Header ("Path State Following")]
   public Transform path; // idle patrolling path
   public Vector3[] waypoints; // hold invididual waypoints. populated in Start() and utilized in IdleState
   public float followPathWaitTime = .3f; // time to wait between path nodes (idle state)
@@ -33,7 +39,10 @@ public class EnemyManager : CharacterManager {
     Perform global actions and refresh variables that aren't dependent on a state.
   */
   void Update() {
-    distanceFromTarget = Vector3.Distance(target.position, transform.position); // refresh distance
+    targetHeading = target.position - transform.position; // get a vector that points towards target
+    targetDistance = targetHeading.magnitude; // refresh distance
+    targetDirection = targetHeading / targetDistance; // refresh normalized direction
+
     HandleStateMachine();
     ApplyMovement(); // inherited from CharacterManager
   }

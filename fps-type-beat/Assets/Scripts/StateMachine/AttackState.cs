@@ -5,13 +5,19 @@ using UnityEngine;
 public class AttackState : State {
   public PatrolState patrolState;
 
+  private float strafeTimer;
+  private float jumpTimer;
+
   public override State RunCurrentState() {
     SetRandomMovement();
-    //SetAim();
+    Vector3 lookAtTarget = new Vector3(enemyManager.target.position.x,
+                                       enemyManager.transform.position.y, // lock y axis
+                                       enemyManager.target.position.z);
+    enemyManager.transform.LookAt(lookAtTarget);
     //HandleShooting(enemyManager);
 
     // handle state switching:
-    if (enemyManager.distanceFromTarget > enemyManager.attackRadius) {
+    if (enemyManager.targetDistance > enemyManager.attackRadius) {
       return patrolState; // switch states
     } else {
       return this; // remain in this state
@@ -22,27 +28,29 @@ public class AttackState : State {
     Assign x, y, z with random movement.
   */
   private void SetRandomMovement() {
-    // FIXME: something here isn't working right. agent keeps jumping (like always (need a cooldown timer?)).
-    //        agent also never moves to their right. weird.
+    // set timers:
+    strafeTimer -= Time.deltaTime;
+    jumpTimer -= Time.deltaTime;
+
     // randomize movement:
-    if (enemyManager.distanceFromTarget > enemyManager.stopPursuitRadius) { // outside of stopPursuitRadius
-      enemyManager.zMovement = (int)Random.Range(0, 1);
-    } else { // within stopPursuitRadius "personal space"
-      enemyManager.zMovement = (int)Random.Range(-1, 0);
+    if (enemyManager.targetDistance > enemyManager.stopPursuitRadius) { // outside of stopPursuitRadius, follow
+      enemyManager.zMovement = (Random.value > 0.5) ? 0 : 1;
+    } else { // within stopPursuitRadius "personal space", back up
+      enemyManager.zMovement = (Random.value > 0.5) ? 0 : -1;
     }
-    enemyManager.xMovement = (int)Random.Range(-1, 1); // strafe left or right
 
-    // randomize jumping:
-    if (Random.value > 0.5 && enemyManager.isGrounded) {
-      enemyManager.velocity.y = Mathf.Sqrt(enemyManager.jumpHeight * -2f * enemyManager.gravity);
+    if (strafeTimer <= 0 && enemyManager.isGrounded) { // only switch strafe directions when grounded
+      enemyManager.xMovement = (Random.value > 0.5) ? -1 : 1;
+      strafeTimer = enemyManager.timerStrafeInterval;
     }
-  }
 
-  /*
-    While attacking, always face the player.
-  */
-  private void SetAim() {
-    //TODO: face the player (left off here!!!)
+    if (jumpTimer <= 0) {
+      // randomize jumping:
+      if (Random.value > 0.5 && enemyManager.isGrounded) {
+        enemyManager.velocity.y = Mathf.Sqrt(enemyManager.jumpHeight * -2f * enemyManager.gravity);
+      }
+      jumpTimer = enemyManager.timerJumpInterval;
+    }
   }
 
   //TODO: define shooting behavior

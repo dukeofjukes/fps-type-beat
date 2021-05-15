@@ -3107,7 +3107,8 @@ MonoBehaviour:
   isGrounded: 0
   currentState: {fileID: 460161507}
   target: {fileID: 1307289225}
-  distanceFromTarget: 0
+  targetDistance: 0
+  targetDirection: {x: 0, y: 0, z: 0}
   viewRadius: 20
   viewAngle: 90
   attackRadius: 50
@@ -3115,6 +3116,8 @@ MonoBehaviour:
   viewMask:
     serializedVersion: 2
     m_Bits: 0
+  timerStrafeInterval: 1
+  timerJumpInterval: 2
   path: {fileID: 1957387623}
   waypoints: []
   followPathWaitTime: 2
