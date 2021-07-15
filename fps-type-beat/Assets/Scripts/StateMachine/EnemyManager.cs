@@ -20,6 +20,8 @@ public class EnemyManager : CharacterManager {
   [Header ("Attack State Variables")]
   public float timerStrafeInterval = 1f;
   public float timerJumpInterval = 2f;
+  public float fireRateInterval = 1f;
+  public AudioSource gunAudio;
 
   [Header ("Path State Following")]
   public Transform path; // idle patrolling path
@@ -27,6 +29,7 @@ public class EnemyManager : CharacterManager {
   public float followPathWaitTime = .3f; // time to wait between path nodes (idle state)
 
   void Start() {
+    gunAudio = GetComponent<AudioSource>();
     // populate waypoints array with path waypoints:
     waypoints = new Vector3[path.childCount];
     for (int i = 0; i < waypoints.Length; i++) {

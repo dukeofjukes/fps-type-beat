@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class AttackState : State {
   public PatrolState patrolState;
+  public bool IS_SHOOTING; // DEBUG
 
   private float strafeTimer;
   private float jumpTimer;
+
+  // shooting stuff:
+  private float fireTimer;
+  private WaitForSeconds shotDuration = new WaitForSeconds(.07f);
 
   public override State RunCurrentState() {
     SetRandomMovement();
@@ -14,7 +19,8 @@ public class AttackState : State {
                                        enemyManager.transform.position.y, // lock y axis
                                        enemyManager.target.position.z);
     enemyManager.transform.LookAt(lookAtTarget);
-    //HandleShooting(enemyManager);
+    
+    HandleShooting();
 
     // handle state switching:
     if (enemyManager.targetDistance > enemyManager.attackRadius) {
@@ -53,6 +59,32 @@ public class AttackState : State {
     }
   }
 
-  //TODO: define shooting behavior
-  // private void HandleShooting() {}
+  /*
+    Handles shooting timers, effects, and any associated logic in the event of a landed shot.
+  */
+  private void HandleShooting() {
+    // so, enemy should already be facing the target player in the attack state.
+    // that means, we should apply some kind of projectile shoot (not raycast), that takes time to reach the player
+
+    // set timer:
+    fireTimer -= Time.deltaTime;
+    
+    if (fireTimer <= 0) {
+      fireTimer = enemyManager.fireRateInterval;
+
+      StartCoroutine(ShotEffect());
+
+      // TODO: handle health damage if the shot lands
+      // check collider or component or mask or something
+    }
+  }
+
+  private IEnumerator ShotEffect() {
+    enemyManager.gunAudio.Play();
+
+    // FIXME: since we aren't doing raycast, find some solution to apply an orb or something (think like DOOM)
+    IS_SHOOTING = true;
+    yield return shotDuration;
+    IS_SHOOTING = false;
+  }
 }

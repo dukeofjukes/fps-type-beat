@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// FIXME: this entire file has the potential to be refactored to utilize the CharacterManager class
+// depends on gun object references and such. especially when it comes to the shooting visual effect in 
+// the camera.
 public class RaycastShoot : MonoBehaviour {
   public int gunDamage = 1;
   public float fireRate = .25f;
@@ -9,7 +12,7 @@ public class RaycastShoot : MonoBehaviour {
   public float hitForce = 100f;
   public Transform gunEnd;
 
-  private Camera fpsCam; // FIXME: nullref when a camera does not exist (i.e. an enemy), is there a fix?
+  private Camera fpsCam;
   private WaitForSeconds shotDuration = new WaitForSeconds(.07f);
   private AudioSource gunAudio;
   private LineRenderer laserLine;
